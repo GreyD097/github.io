@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<link href="inner.css" rel="stylesheet"/>
+	</head>
+	<body>
+		<div class="img-group">
+			<img class="free" src="img/3.png" data-content="10000蛋币">
+			<img class="free" src="img/3.png" data-content="审判团长法莉塔">
+			<img class="free" src="img/3.png" data-content="幻想毛怪">
+			<img class="free" src="img/3.png" data-content="飞天舞姬莲若">
+			<img class="free" src="img/3.png" data-content="圣翼天使一澄">
+			<img class="free" src="img/3.png" data-content="龙魂战神一御">
+			<img class="free" style="margin-top: 2vw;" src="img/3.png" data-content="断罪骑士一极">
+			<img class="free" style="margin-top: 1vw;" src="img/3.png" data-content="影像捕手妮咔">
+			<img class="free" style="margin-top: 1vw;" src="img/3.png" data-content="约尔·福杰">
+			<img class="free" style="margin-top: 2vw;" src="img/3.png" data-content="奶茶店阿噗">
+			<img class="free" style="margin-top: 1vw;" src="img/3.png" data-content="玫瑰骑士">
+		</div>
+		
+		<div class="overlay hidden"></div>
+		
+		<div id="model" class="hidden">
+			<p id="model-content">
+				领取『10000蛋币』
+
+				<img id="close" src="img/关闭.svg" width="8px">
+			</p>
+			<div>
+				<span style="color: red;">*</span>游戏名称
+				<input type="text"/>
+			</div>
+			<button id="btn">点击领取</button>
+		</div>
+		<div id="success-toast" class="hidden">领取成功</div>
+		
+		<script>
+			document.addEventListener('DOMContentLoaded', function () {
+				const model = document.getElementById('model');
+				const overlay = document.querySelector('.overlay');
+				const closeButton = document.getElementById('close');
+				const freeElements = document.querySelectorAll('.free');
+				const btn = document.getElementById('btn');
+				const toast = document.getElementById('success-toast');
+				const modelContent = document.getElementById('model-content');
+	
+				freeElements.forEach(free => {
+					free.addEventListener('click', function () {
+						const content = this.getAttribute('data-content');
+						modelContent.innerHTML = `领取『${content}』 <img id="close" src="img/关闭.svg" width="8px" style="cursor: pointer; float: right;">`;
+						model.classList.remove('hidden');
+						overlay.classList.remove('hidden');
+	
+						const updatedCloseButton = document.getElementById('close');
+						updatedCloseButton.addEventListener('click', function () {
+							model.classList.add('hidden');
+							overlay.classList.add('hidden');
+						});
+					});
+				});
+	
+				overlay.addEventListener('click', function () {
+					model.classList.add('hidden');
+					overlay.classList.add('hidden');
+				});
+	
+				btn.addEventListener('click', function () {
+					model.classList.add('hidden');
+					overlay.classList.add('hidden');
+	
+					toast.classList.remove('hidden');
+					toast.classList.add('show');
+	
+					setTimeout(function () {
+						toast.classList.remove('show');
+						toast.classList.add('hidden');
+					}, 3000);
+				});
+			});
+		</script>
+
+	   <div class="time-group">
+			<div class="countdown">
+				<div class="digit days">0</div>
+				<div class="separator">天</div>
+				<div class="digit hours">00</div>
+				<div class="separator">:</div>
+				<div class="digit minutes">00</div>
+				<div class="separator">:</div>
+				<div class="digit seconds">00</div>
+				后结束抢购
+			</div>
+			<div class="countdown">
+				<div class="digit days">0</div>
+				<div class="separator">天</div>
+				<div class="digit hours">00</div>
+				<div class="separator">:</div>
+				<div class="digit minutes">00</div>
+				<div class="separator">:</div>
+				<div class="digit seconds">00</div>
+				后结束抢购
+			</div>
+			<div class="countdown" style="margin-top: 1vw;">
+				<div class="digit days">0</div>
+				<div class="separator">天</div>
+				<div class="digit hours">00</div>
+				<div class="separator">:</div>
+				<div class="digit minutes">00</div>
+				<div class="separator">:</div>
+				<div class="digit seconds">00</div>
+				后结束抢购
+			</div>
+			<div class="countdown">
+				<div class="digit days">0</div>
+				<div class="separator">天</div>
+				<div class="digit hours">00</div>
+				<div class="separator">:</div>
+				<div class="digit minutes">00</div>
+				<div class="separator">:</div>
+				<div class="digit seconds">00</div>
+				后结束抢购
+			</div>
+			<div class="countdown" style="margin-top: 1vw;">
+				<div class="digit days">0</div>
+				<div class="separator">天</div>
+				<div class="digit hours">00</div>
+				<div class="separator">:</div>
+				<div class="digit minutes">00</div>
+				<div class="separator">:</div>
+				<div class="digit seconds">00</div>
+				后结束抢购
+			</div>
+			<div class="countdown" style="margin-top: 2vw;">
+				<div class="digit days">0</div>
+				<div class="separator">天</div>
+				<div class="digit hours">00</div>
+				<div class="separator">:</div>
+				<div class="digit minutes">00</div>
+				<div class="separator">:</div>
+				<div class="digit seconds">00</div>
+				后结束抢购
+			</div>
+			<div class="countdown" style="margin-top: 3vw;">
+				<div class="digit days">0</div>
+				<div class="separator">天</div>
+				<div class="digit hours">00</div>
+				<div class="separator">:</div>
+				<div class="digit minutes">00</div>
+				<div class="separator">:</div>
+				<div class="digit seconds">00</div>
+				后结束抢购
+			</div>
+			<div class="countdown" style="margin-top: 2vw;">
+				<div class="digit days">0</div>
+				<div class="separator">天</div>
+				<div class="digit hours">00</div>
+				<div class="separator">:</div>
+				<div class="digit minutes">00</div>
+				<div class="separator">:</div>
+				<div class="digit seconds">00</div>
+				后结束抢购
+			</div>
+			<div class="countdown" style="margin-top: 1vw;">
+				<div class="digit days">0</div>
+				<div class="separator">天</div>
+				<div class="digit hours">00</div>
+				<div class="separator">:</div>
+				<div class="digit minutes">00</div>
+				<div class="separator">:</div>
+				<div class="digit seconds">00</div>
+				后结束抢购
+			</div>
+			<div class="countdown" style="margin-top: 3vw;">
+				<div class="digit days">0</div>
+				<div class="separator">天</div>
+				<div class="digit hours">00</div>
+				<div class="separator">:</div>
+				<div class="digit minutes">00</div>
+				<div class="separator">:</div>
+				<div class="digit seconds">00</div>
+				后结束抢购
+			</div>
+			<div class="countdown" style="margin-top: 3vw;">
+				<div class="digit days">0</div>
+				<div class="separator">天</div>
+				<div class="digit hours">00</div>
+				<div class="separator">:</div>
+				<div class="digit minutes">00</div>
+				<div class="separator">:</div>
+				<div class="digit seconds">00</div>
+				后结束抢购
+			</div>
+		</div>
+
+		<script>
+		    document.addEventListener('DOMContentLoaded', function() {
+		        const targetDate = new Date();
+		        targetDate.setHours(0, 0, 0, 0);
+		        targetDate.setDate(targetDate.getDate() + 3);
+		
+		        const countdowns = document.querySelectorAll('.countdown');
+		
+		        countdowns.forEach(countdown => {
+		            const daysElement = countdown.querySelector('.days');
+		            const hoursElement = countdown.querySelector('.hours');
+		            const minutesElement = countdown.querySelector('.minutes');
+		            const secondsElement = countdown.querySelector('.seconds');
+		
+		            function updateCountdown() {
+		                const now = new Date();
+		                const timeDifference = targetDate - now;
+		
+		                if (timeDifference <= 0) {
+		                    clearInterval(timer);
+		                    daysElement.textContent = '0';
+		                    hoursElement.textContent = '00';
+		                    minutesElement.textContent = '00';
+		                    secondsElement.textContent = '00';
+		                    return;
+		                }
+		
+		                const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+		                const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		                const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+		                const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+		
+		                daysElement.textContent = days;
+		                hoursElement.textContent = hours.toString().padStart(2, '0');
+		                minutesElement.textContent = minutes.toString().padStart(2, '0');
+		                secondsElement.textContent = seconds.toString().padStart(2, '0');
+		            }
+		
+		            const timer = setInterval(updateCountdown, 1000);
+		            updateCountdown();
+		        });
+		    });
+		</script>
+
+	</body>
+</html>
