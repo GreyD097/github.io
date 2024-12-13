@@ -37,14 +37,14 @@ input:focus {
 	position: absolute;
 	width: 100%;
 	top: 122vw;
-	
-	input {
-		width: 90vw;
-		background-color: #fff;
-		border-radius: 40px;
-		padding: 16px;
-		font-weight: bold;
-	}
+}
+
+.input-box input {
+	width: 90vw;
+	background-color: #fff;
+	border-radius: 40px;
+	padding: 16px;
+	font-weight: bold;
 }
 
 .code {
