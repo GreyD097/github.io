@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<style>
+			* {
+			    margin: 0;
+			    padding: 0;
+			    box-sizing: border-box;
+			    text-decoration: none;
+			    scroll-behavior: smooth;
+			    user-select: none;
+			}
+			
+			img {
+			    display: block;
+			}
+			
+			body {
+				display: flex;
+				justify-content: center;
+				position: relative;
+				max-width: 393px;
+				background-image: url("img/1 (3).jpg");
+				background-repeat: no-repeat;
+				background-size: cover;
+				height: 350vh;
+			}
+			
+			.free {
+				width: 24vw;
+				margin-left: 62vw;
+			}
+			
+			.img-group {
+				position: relative;
+				padding-top: 178vw;
+				display: flex;
+				flex-direction: column;
+				gap: 47vw;
+			}
+			
+			.time-group {
+				position: absolute;
+				top: 140vw;
+				left: 11vw;
+				display: flex;
+				flex-direction: column;
+				gap: 49vw;
+			}
+			
+			.countdown {
+				display: flex;
+				align-items: center;
+				gap: 5px;
+			}
+			
+			.digit {
+				width: 23px;
+				height: 23px;
+				background-color: black;
+				color: white;
+				font-size: 14px;
+				font-weight: bold;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				border-radius: 5px;
+			}
+			
+			.separator {
+				font-size: 14px;
+				color: black;
+			}
+			
+			.overlay {
+			    position: fixed;
+			    top: 0;
+			    left: 0;
+			    width: 100%;
+			    height: 100%;
+			    background: rgba(0, 0, 0, 0.5); 
+			    z-index: 999; 
+			}
+			
+			#model {
+				z-index: 1000;
+				position: fixed;
+				display: flex;
+				flex-direction: column;
+				gap: 20px;
+				top: 35vh;
+				background-color: #fff;
+				border-radius: 2px;
+				width: 94vw;
+				padding: 20px;
+				color: #4a4a4a;
+				
+				p {
+					position: relative;
+					
+					img {
+						position: absolute;
+						right: 0;
+						top: 20%;
+					}
+				}
+				
+				input {
+					padding: 10px;
+					outline: none;
+					border: 1px solid #51a3d6;
+					border-radius: 10px;
+					width: 72%;
+					margin-left: 3vw;
+				}
+				
+				#btn {
+					width: 100%;
+					padding: 10px 0;
+					color: white;
+					background-color: rgb(219,81,34);
+					border-radius: 10px;
+					border: 0;
+				}
+			}
+			
+			.hidden {
+				display: none !important;
+			}
+			
+			#success-toast {
+			    position: fixed;
+			    top: 40vh;
+			    left: 50%;
+			    transform: translateX(-50%);
+				background-color: rgba(0,0,0,0.7);
+			    color: white;
+			    padding: 6px 20px;
+			    border-radius: 3px;
+			    font-size: 15px;
+			    text-align: center;
+			    transition: opacity 0.3s ease; 
+			    z-index: 1001; 
+			}
+			
+			.show {
+			    display: block;
+			    opacity: 1;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="img-group">
+			<img class="free" src="img/3.png" data-content="10000蛋币">
+			<img class="free" src="img/3.png" data-content="审判团长法莉塔">
+			<img class="free" src="img/3.png" data-content="幻想毛怪">
+			<img class="free" src="img/3.png" data-content="飞天舞姬莲若">
+			<img class="free" src="img/3.png" data-content="圣翼天使一澄">
+			<img class="free" src="img/3.png" data-content="龙魂战神一御">
+			<img class="free" style="margin-top: 2vw;" src="img/3.png" data-content="断罪骑士一极">
+			<img class="free" style="margin-top: 1vw;" src="img/3.png" data-content="影像捕手妮咔">
+			<img class="free" style="margin-top: 1vw;" src="img/3.png" data-content="约尔·福杰">
+			<img class="free" style="margin-top: 2vw;" src="img/3.png" data-content="奶茶店阿噗">
+			<img class="free" style="margin-top: 1vw;" src="img/3.png" data-content="玫瑰骑士">
+		</div>
+		
+		<div class="overlay hidden"></div>
+		
+		<div id="model" class="hidden">
+			<p id="model-content">
+				领取『10000蛋币』
+
+				<img id="close" src="img/关闭.svg" width="8px">
+			</p>
+			<div>
+				<span style="color: red;">*</span>游戏名称
+				<input type="text"/>
+			</div>
+			<button id="btn">点击领取</button>
+		</div>
+		<div id="success-toast" class="hidden">领取成功</div>
+		
+		<script>
+			document.addEventListener('DOMContentLoaded', function () {
+				const model = document.getElementById('model');
+				const overlay = document.querySelector('.overlay');
+				const closeButton = document.getElementById('close');
+				const freeElements = document.querySelectorAll('.free');
+				const btn = document.getElementById('btn');
+				const toast = document.getElementById('success-toast');
+				const modelContent = document.getElementById('model-content');
+	
+				freeElements.forEach(free => {
+					free.addEventListener('click', function () {
+						const content = this.getAttribute('data-content');
+						modelContent.innerHTML = `领取『${content}』 <img id="close" src="img/关闭.svg" width="8px" style="cursor: pointer; float: right;">`;
+						model.classList.remove('hidden');
+						overlay.classList.remove('hidden');
+	
+						const updatedCloseButton = document.getElementById('close');
+						updatedCloseButton.addEventListener('click', function () {
+							model.classList.add('hidden');
+							overlay.classList.add('hidden');
+						});
+					});
+				});
+	
+				overlay.addEventListener('click', function () {
+					model.classList.add('hidden');
+					overlay.classList.add('hidden');
+				});
+	
+				btn.addEventListener('click', function () {
+					model.classList.add('hidden');
+					overlay.classList.add('hidden');
+	
+					toast.classList.remove('hidden');
+					toast.classList.add('show');
+	
+					setTimeout(function () {
+						toast.classList.remove('show');
+						toast.classList.add('hidden');
+					}, 3000);
+				});
+			});
+		</script>
+
+	   <div class="time-group">
+			<div class="countdown">
+				<div class="digit days">0</div>
+				<div class="separator">天</div>
+				<div class="digit hours">00</div>
+				<div class="separator">:</div>
+				<div class="digit minutes">00</div>
+				<div class="separator">:</div>
+				<div class="digit seconds">00</div>
+				后结束抢购
+			</div>
+			<div class="countdown">
+				<div class="digit days">0</div>
+				<div class="separator">天</div>
+				<div class="digit hours">00</div>
+				<div class="separator">:</div>
+				<div class="digit minutes">00</div>
+				<div class="separator">:</div>
+				<div class="digit seconds">00</div>
+				后结束抢购
+			</div>
+			<div class="countdown" style="margin-top: 1vw;">
+				<div class="digit days">0</div>
+				<div class="separator">天</div>
+				<div class="digit hours">00</div>
+				<div class="separator">:</div>
+				<div class="digit minutes">00</div>
+				<div class="separator">:</div>
+				<div class="digit seconds">00</div>
+				后结束抢购
+			</div>
+			<div class="countdown">
+				<div class="digit days">0</div>
+				<div class="separator">天</div>
+				<div class="digit hours">00</div>
+				<div class="separator">:</div>
+				<div class="digit minutes">00</div>
+				<div class="separator">:</div>
+				<div class="digit seconds">00</div>
+				后结束抢购
+			</div>
+			<div class="countdown" style="margin-top: 1vw;">
+				<div class="digit days">0</div>
+				<div class="separator">天</div>
+				<div class="digit hours">00</div>
+				<div class="separator">:</div>
+				<div class="digit minutes">00</div>
+				<div class="separator">:</div>
+				<div class="digit seconds">00</div>
+				后结束抢购
+			</div>
+			<div class="countdown" style="margin-top: 2vw;">
+				<div class="digit days">0</div>
+				<div class="separator">天</div>
+				<div class="digit hours">00</div>
+				<div class="separator">:</div>
+				<div class="digit minutes">00</div>
+				<div class="separator">:</div>
+				<div class="digit seconds">00</div>
+				后结束抢购
+			</div>
+			<div class="countdown" style="margin-top: 3vw;">
+				<div class="digit days">0</div>
+				<div class="separator">天</div>
+				<div class="digit hours">00</div>
+				<div class="separator">:</div>
+				<div class="digit minutes">00</div>
+				<div class="separator">:</div>
+				<div class="digit seconds">00</div>
+				后结束抢购
+			</div>
+			<div class="countdown" style="margin-top: 2vw;">
+				<div class="digit days">0</div>
+				<div class="separator">天</div>
+				<div class="digit hours">00</div>
+				<div class="separator">:</div>
+				<div class="digit minutes">00</div>
+				<div class="separator">:</div>
+				<div class="digit seconds">00</div>
+				后结束抢购
+			</div>
+			<div class="countdown" style="margin-top: 1vw;">
+				<div class="digit days">0</div>
+				<div class="separator">天</div>
+				<div class="digit hours">00</div>
+				<div class="separator">:</div>
+				<div class="digit minutes">00</div>
+				<div class="separator">:</div>
+				<div class="digit seconds">00</div>
+				后结束抢购
+			</div>
+			<div class="countdown" style="margin-top: 3vw;">
+				<div class="digit days">0</div>
+				<div class="separator">天</div>
+				<div class="digit hours">00</div>
+				<div class="separator">:</div>
+				<div class="digit minutes">00</div>
+				<div class="separator">:</div>
+				<div class="digit seconds">00</div>
+				后结束抢购
+			</div>
+			<div class="countdown" style="margin-top: 3vw;">
+				<div class="digit days">0</div>
+				<div class="separator">天</div>
+				<div class="digit hours">00</div>
+				<div class="separator">:</div>
+				<div class="digit minutes">00</div>
+				<div class="separator">:</div>
+				<div class="digit seconds">00</div>
+				后结束抢购
+			</div>
+		</div>
+
+		<script>
+		    document.addEventListener('DOMContentLoaded', function() {
+		        const targetDate = new Date();
+		        targetDate.setHours(0, 0, 0, 0);
+		        targetDate.setDate(targetDate.getDate() + 3);
+		
+		        const countdowns = document.querySelectorAll('.countdown');
+		
+		        countdowns.forEach(countdown => {
+		            const daysElement = countdown.querySelector('.days');
+		            const hoursElement = countdown.querySelector('.hours');
+		            const minutesElement = countdown.querySelector('.minutes');
+		            const secondsElement = countdown.querySelector('.seconds');
+		
+		            function updateCountdown() {
+		                const now = new Date();
+		                const timeDifference = targetDate - now;
+		
+		                if (timeDifference <= 0) {
+		                    clearInterval(timer);
+		                    daysElement.textContent = '0';
+		                    hoursElement.textContent = '00';
+		                    minutesElement.textContent = '00';
+		                    secondsElement.textContent = '00';
+		                    return;
+		                }
+		
+		                const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+		                const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		                const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+		                const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+		
+		                daysElement.textContent = days;
+		                hoursElement.textContent = hours.toString().padStart(2, '0');
+		                minutesElement.textContent = minutes.toString().padStart(2, '0');
+		                secondsElement.textContent = seconds.toString().padStart(2, '0');
+		            }
+		
+		            const timer = setInterval(updateCountdown, 1000);
+		            updateCountdown();
+		        });
+		    });
+		</script>
+
+	</body>
+</html>
