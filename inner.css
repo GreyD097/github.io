@@ -90,34 +90,34 @@ body {
 	width: 94vw;
 	padding: 20px;
 	color: #4a4a4a;
-	
-	p {
-		position: relative;
-		
-		img {
-			position: absolute;
-			right: 0;
-			top: 20%;
-		}
-	}
-	
-	input {
-		padding: 10px;
-		outline: none;
-		border: 1px solid #51a3d6;
-		border-radius: 10px;
-		width: 72%;
-		margin-left: 3vw;
-	}
-	
-	#btn {
-		width: 100%;
-		padding: 10px 0;
-		color: white;
-		background-color: rgb(219,81,34);
-		border-radius: 10px;
-		border: 0;
-	}
+}
+
+#model input {
+	padding: 10px;
+	outline: none;
+	border: 1px solid #51a3d6;
+	border-radius: 10px;
+	width: 72%;
+	margin-left: 3vw;
+}
+
+#model p{
+	position: relative;
+}
+
+#model p img{
+	position: absolute;
+	right: 0;
+	top: 20%;
+}
+
+#btn {
+	width: 100%;
+	padding: 10px 0;
+	color: white;
+	background-color: rgb(219,81,34);
+	border-radius: 10px;
+	border: 0;
 }
 
 .hidden {
